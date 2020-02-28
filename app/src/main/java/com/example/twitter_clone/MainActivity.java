@@ -4,14 +4,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,7 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txtKickPower;
     private Button saveDataBtn;
 
+    private TextView txtDataServer;
 
+    private String allData = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +47,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         saveDataBtn.setOnClickListener(this);
 
+        txtDataServer = findViewById(R.id.txtDataServer);
+        txtDataServer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+       ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Boxer");
+       parseQuery.findInBackground(new FindCallback<ParseObject>() {
+           @Override
+           public void done(List<ParseObject> objects, ParseException e) {
+               if(e==null){
+
+           for(ParseObject object :objects){
+
+               allData = allData + object.get("Name") + "\n";
+
+
+
+           }
+
+  FancyToast.makeText(MainActivity.this,allData, FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+               }
+
+               else{
+ FancyToast.makeText(MainActivity.this,e.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
+
+               }
+
+
+           }
+       });
+
+
+
+
+       //       parseQuery.getInBackground("xTfB8udAOo",
+//               new GetCallback<ParseObject>() {
+//       @Override
+//       public void done(ParseObject object, ParseException e) {
+//           if(object!=null && e==null){
+//
+//               txtDataServer.setText(object.get("Name")+"");
+//
+//           }
+//
+//
+//
+//                    }
+//                });
+
+
+            }
+        });
 
 
     }
