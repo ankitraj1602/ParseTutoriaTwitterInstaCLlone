@@ -1,5 +1,6 @@
 package com.example.twitter_clone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txtKickPower;
     private Button saveDataBtn;
 
+    private Button btnTransition;
+
     private TextView txtDataServer;
 
     private String allData = "";
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtPunchSpeed = findViewById(R.id.punchSpeedTxt);
         saveDataBtn = findViewById(R.id.button);
 
+        btnTransition = findViewById(R.id.btnTransition);
         saveDataBtn.setOnClickListener(this);
 
         txtDataServer = findViewById(R.id.txtDataServer);
@@ -100,7 +104,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
+     btnTransition.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             Intent intentToGoToSignUpLogIn = new Intent
+                     (MainActivity.this,SignUpLogIn.class);
+             startActivity(intentToGoToSignUpLogIn);
+         }
+     });
     }
 
     @Override
