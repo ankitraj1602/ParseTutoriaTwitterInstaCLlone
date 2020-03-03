@@ -57,14 +57,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            @Override
            public void done(List<ParseObject> objects, ParseException e) {
                if(e==null){
-
+            if(objects.size()>0){
            for(ParseObject object :objects){
 
                allData = allData + object.get("Name") + "\n";
 
 
 
-           }
+           }}
 
   FancyToast.makeText(MainActivity.this,allData, FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                }
